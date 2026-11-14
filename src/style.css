@@ -1,0 +1,64 @@
+/* Global styles for the body element */
+body{
+    font-family: Arial, sans-serif;
+    background-image: url('./images/PIA03654~orig.jpg'); 
+    background-size: cover;
+    background-position: center;
+
+}
+
+#title-container{
+    text-align: center;
+    color: white;
+    font-size: 40px;
+}
+
+#options{
+    position: absolute;
+    width: 60%;
+    height: 30%;
+    top:30%;
+    left: 50%;
+    bottom: 25%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgb(4, 24, 41);
+    
+}
+
+#Commander{
+    font-size: 60px;
+    background-color: rgb(51, 88, 120);
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin: 10px;
+    cursor: pointer;
+    position: absolute;
+    left: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+#Engineer{
+    font-size: 60px;
+    background-color: rgb(51, 88, 120);
+    color: white;
+    border: none;
+    padding: 10px 40px;
+    margin: 10px;
+    cursor: pointer;
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%);
+    
+}
+
+#game-container{
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    color: blue;
+}
