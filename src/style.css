@@ -93,3 +93,19 @@ body{
     color: rgb(78, 78, 80);
     
 }
+
+.hidden{
+    display: none;
+}
+
+#game-over-container{
+    position: absolute;
+    width: 60%;
+    height: 30%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgb(4, 24, 41);
+    border-radius: 20px;
+}
