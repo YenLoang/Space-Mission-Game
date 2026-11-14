@@ -17,13 +17,41 @@ body{
     position: absolute;
     width: 60%;
     height: 30%;
-    top:30%;
+    top:18%;
     left: 50%;
     bottom: 25%;
     transform: translate(-50%, -50%);
     text-align: center;
     background-color: rgb(4, 24, 41);
+    border-radius: 20px;
     
+}
+#button-container{
+    position: absolute;
+    width: 30%;
+    height: 20%;
+    top:55%;
+    left: 50%;
+    bottom: 25%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    background-color: rgb(4, 24, 41);
+    border-radius: 20px;
+}
+
+#start-btn{
+    font-size: 60px;
+    background-color: rgb(51, 88, 120);
+    color: white;
+    border: none;
+    padding: 10px 60px;
+    margin: 10px;
+    cursor: pointer;
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 20px;
 }
 
 #Commander{
@@ -38,6 +66,7 @@ body{
     left: 5%;
     top: 50%;
     transform: translateY(-50%);
+    border-radius: 20px;
     
 }
 
@@ -53,6 +82,7 @@ body{
     right: 5%;
     top: 50%;
     transform: translateY(-50%);
+    border-radius: 20px;
     
 }
 
@@ -60,6 +90,6 @@ body{
     position: relative;
     width: 100%;
     height: 100vh;
-    color: blue;
-    display: none;
+    color: rgb(78, 78, 80);
+    
 }
