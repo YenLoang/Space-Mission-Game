@@ -631,3 +631,28 @@ button:disabled {
         font-size: 35px;
     }
 }
+
+/*Launch Result*/
+#launch-result{
+    position: absolute;
+    width: 60%;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    text-align: center;
+    color: white;
+    font-size: 24px;
+    padding: 30px;
+    background-color: rgb(4, 24, 41);
+    border-radius: 20px;
+}
+
+#launch-result-btn{
+    font-size: 24px;
+    background-color: rgb(51, 88, 120);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+}
