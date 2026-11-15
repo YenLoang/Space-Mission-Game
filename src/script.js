@@ -63,7 +63,7 @@ music.volume = 0.3;                                   // 0 to 1; keep it quiet
 let musicMuted = localStorage.getItem('musicMuted') === 'true';
 
 function updateMuteButton() {
-    muteBtn.textContent = musicMuted ? '🔇' : '🔊';
+    muteBtn.textContent = musicMuted ? '🚫' : '📢';
 }
 
 function startMusic() {
