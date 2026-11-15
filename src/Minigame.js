@@ -1,13 +1,30 @@
-const MGF_FUEL_ZONES = {
-    1: {min: 30, max: 50, name: "Rescue"}, //Short trip 
-    2: {min: 75, max: 85, name: "Distance" }, //Distance trip, travel
-    3: {min: 55, max: 70, name: "Long-term orbit"},
+// minigames.js — the Engineer's pre-launch minigames.
+//
+// HOW TO CONNECT IT (for whoever links the screens together):
+//   1. In index.html <head> add:
+//        <link rel="stylesheet" href="minigames.css">
+//        <script src="minigames.js" defer></script>
+//   2. When the player is ready to launch, call:
+//        startEngineerMinigames(1, (success, reason) => {
+//            if (success) { /* show launch / success screen */ }
+//            else         { /* show game over, maybe show `reason` */ }
+//        });
+//      The first number is the mission: 1 = Rescue, 2 = Distance, 3 = Long-term orbit.
+//
+// It builds its own screen on top of the page, so it doesn't need any HTML added.
+
+// Fuel target zone (in % of the tank) for each mission
+const MG_FUEL_ZONES = {
+    1: { min: 30, max: 50, name: "Rescue" },        // short trip, light ship — easy
+    2: { min: 75, max: 85, name: "Distance" },      // long trip — needs lots of fuel, tight zone
+    3: { min: 55, max: 70, name: "Long-term orbit" },
 };
 
-const MG_WIRE_COLORS = ['red', 'green','blue', 'yellow'];
-const MG_WIRE_TIME = 20;
+const MG_WIRE_COLORS = ['red', 'blue', 'yellow', 'green'];
+const MG_WIRE_TIME = 20;   // seconds to finish the wiring
 const MG_FUEL_TRIES = 3;
 
+// ---------- Main entry point ----------
 function startEngineerMinigames(missionNumber, onDone) {
     const overlay = mgBuildOverlay();
 
@@ -18,21 +35,23 @@ function startEngineerMinigames(missionNumber, onDone) {
 
             mgFuelGame(overlay, missionNumber, (fuelOk, reason) => {
                 if (!fuelOk) return mgFinish(overlay, false, reason, onDone);
-                mgFinish(overlay, true, "Wiring fixed and fuel loaded. Ready for launch!", onDone);
+                mgFinish(overlay, true, "Wiring fixed and fuel loaded. Ready for launch! 🚀", onDone);
             });
         });
     });
 }
-// warning 
-function mgBuildOverlay(){
+
+// ---------- Overlay (the screen the minigames live on) ----------
+function mgBuildOverlay() {
     let overlay = document.getElementById('mg-overlay');
     if (overlay) overlay.remove();               // start fresh if played before
     overlay = document.createElement('div');
     overlay.id = 'mg-overlay';
     document.body.appendChild(overlay);
     return overlay;
-
 }
+
+// ---------- Step 1: warning ----------
 function mgShowWarning(overlay, next) {
     overlay.innerHTML = `
         <div id="mg-warning">
@@ -42,6 +61,8 @@ function mgShowWarning(overlay, next) {
         </div>`;
     document.getElementById('mg-repair-btn').addEventListener('click', next);
 }
+
+// ---------- Step 2: wiring game ----------
 function mgWireGame(overlay, done) {
     overlay.innerHTML = `
         <p class="mg-title">Repair the wiring</p>
@@ -53,7 +74,8 @@ function mgWireGame(overlay, done) {
         </div>
         <p class="mg-timer" id="mg-timer">⏱ ${MG_WIRE_TIME}s</p>
         <p class="mg-msg" id="mg-wire-msg"></p>`;
-        let selected = null;
+
+    let selected = null;
     let connected = 0;
     let timeLeft = MG_WIRE_TIME;
     let finished = false;
@@ -68,8 +90,8 @@ function mgWireGame(overlay, done) {
             done(false);
         }
     }, 1000);
-}
-function makeWire(color, sideId) {
+
+    function makeWire(color, sideId) {
         const dot = document.createElement('div');
         dot.className = 'mg-wire';
         dot.style.background = color;
@@ -77,7 +99,9 @@ function makeWire(color, sideId) {
         document.getElementById(sideId).appendChild(dot);
         return dot;
     }
-     MG_WIRE_COLORS.forEach(color => {
+
+    // left side: in order
+    MG_WIRE_COLORS.forEach(color => {
         const dot = makeWire(color, 'mg-left-wires');
         dot.addEventListener('click', () => {
             if (dot.dataset.done || finished) return;
@@ -86,6 +110,8 @@ function makeWire(color, sideId) {
             dot.style.border = '4px solid white';
         });
     });
+
+    // right side: shuffled
     const shuffled = [...MG_WIRE_COLORS].sort(() => Math.random() - 0.5);
     shuffled.forEach(color => {
         const dot = makeWire(color, 'mg-right-wires');
@@ -113,6 +139,8 @@ function makeWire(color, sideId) {
             selected = null;
         });
     });
+}
+
 function mgDrawLine(a, b, color) {
     const box = document.getElementById('mg-wire-board').getBoundingClientRect();
     const r1 = a.getBoundingClientRect();
@@ -128,48 +156,47 @@ function mgDrawLine(a, b, color) {
     document.getElementById('mg-wire-lines').appendChild(line);
 }
 
-function mgFuelGame(overlay, missionNumber, done){
-    const zone = MGF_FUEL_ZONES[missionNumber] || MGF_FUEL_ZONES[1];
+// ---------- Step 3: fuel game ----------
+function mgFuelGame(overlay, missionNumber, done) {
+    const zone = MG_FUEL_ZONES[missionNumber] || MG_FUEL_ZONES[1];
 
     overlay.innerHTML = `
-    <p class = "mg-title">Load the Fuel</p>
-    <p class ="mg-sub">${zone.name} mission: hold the button and let go in the green zome.</p>
-    <div id="mg-tank">
-        <div id="mg-zone"></div>
-        <div id ="mg-fuel"></div>
-    </div>
-    <button class="mg-btn" id="mg-fill-btn">Hold to fill </button>
+        <p class="mg-title">Load the fuel</p>
+        <p class="mg-sub">${zone.name} mission: hold the button and let go in the green zone.</p>
+        <div id="mg-tank">
+            <div id="mg-zone"></div>
+            <div id="mg-fuel"></div>
+        </div>
+        <button class="mg-btn" id="mg-fill-btn">Hold to fill ⛽</button>
         <p class="mg-msg" id="mg-fuel-msg">Tries left: ${MG_FUEL_TRIES}</p>`;
-    
-    //green zone on the tank 
-    const zoneE1 = document.getElementById('mg-zone');
-    zoneE1.style.bottom = zone.min +'%';
-    zoneE1.style.height = (zone.max - zone.min) +'%'
 
-    const fuelE1 = document.getElementById('mg-fuel');
+    // place the green zone on the tank
+    const zoneEl = document.getElementById('mg-zone');
+    zoneEl.style.bottom = zone.min + '%';
+    zoneEl.style.height = (zone.max - zone.min) + '%';
+
+    const fuelEl = document.getElementById('mg-fuel');
     const btn = document.getElementById('mg-fill-btn');
     const msg = document.getElementById('mg-fuel-msg');
 
     let level = 0;
     let filling = null;
     let tries = MG_FUEL_TRIES;
-    let locked = false;
+    let locked = false;     // stops input while showing a result
 
-    function startFill(e){
+    function startFill(e) {
         e.preventDefault();
         if (filling || locked) return;
-        level =0;
-        fuelE1.style.height ='0%'
+        level = 0;
+        fuelEl.style.height = '0%';
         filling = setInterval(() => {
-            level += 0.8
+            level += 0.8;
             if (level >= 100) level = 100;
-            fuelE1.style.height = level + '%';
-
+            fuelEl.style.height = level + '%';
         }, 20);
-
     }
 
-    function stopFilling(){
+    function stopFill() {
         if (!filling) return;
         clearInterval(filling);
         filling = null;
@@ -177,18 +204,17 @@ function mgFuelGame(overlay, missionNumber, done){
         tries--;
 
         const pct = Math.round(level);
-        if (level >= zone.min && level <= zone.max){
+        if (level >= zone.min && level <= zone.max) {
             msg.textContent = `Fuel loaded: ${pct}% ✔`;
             setTimeout(() => done(true), 1200);
             return;
         }
 
-    }
-        const tooLow = level <zone.min;
+        const tooLow = level < zone.min;
         const reason = tooLow
-        ? `Not enough fuel (${pct}%) — the spacecraft can't reach its destination.`
+            ? `Not enough fuel (${pct}%) — the spacecraft can't reach its destination.`
             : `Too much fuel (${pct}%) — the rocket is too heavy to lift off.`;
-        
+
         if (tries <= 0) {
             msg.textContent = reason;
             setTimeout(() => done(false, reason), 1500);
@@ -196,15 +222,18 @@ function mgFuelGame(overlay, missionNumber, done){
             msg.textContent = `${tooLow ? 'Too low!' : 'Too high!'} ${pct}% — tries left: ${tries}`;
             setTimeout(() => { locked = false; }, 800);
         }
+    }
 
+    // mouse + touch so it works on laptops and phones
     btn.addEventListener('mousedown', startFill);
     btn.addEventListener('touchstart', startFill);
     btn.addEventListener('mouseup', stopFill);
     btn.addEventListener('mouseleave', stopFill);
     btn.addEventListener('touchend', stopFill);
-    }
+}
 
-    function mgFinish(overlay, success, reason, onDone) {
+// ---------- End: show result, then hand control back ----------
+function mgFinish(overlay, success, reason, onDone) {
     overlay.innerHTML = `
         <p class="mg-title">${success ? '✅ All systems go' : '❌ Mission failed'}</p>
         <p class="mg-sub">${reason}</p>
@@ -214,15 +243,3 @@ function mgFuelGame(overlay, missionNumber, done){
         if (onDone) onDone(success, reason);
     });
 }
-        
-
-
-    
-
-
-
-
-
-
-
-

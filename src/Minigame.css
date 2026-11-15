@@ -1,3 +1,6 @@
+/* minigames.css — styles for the Engineer minigames.
+   Everything starts with "mg-" so it can't clash with other styles. */
+
 #mg-overlay {
     position: fixed;
     inset: 0;
@@ -28,7 +31,7 @@
 }
 .mg-btn:active { transform: scale(0.97); }
 
-/* Flashing Warning */
+/* ---------- Warning ---------- */
 #mg-warning {
     background: #8b0000;
     padding: 24px 32px;
@@ -38,7 +41,7 @@
 }
 @keyframes mg-blink { 50% { opacity: 0.6; } }
 
-/*  Wire game */
+/* ---------- Wire game ---------- */
 #mg-wire-board {
     position: relative;
     width: 360px;
@@ -59,7 +62,7 @@
 }
 .mg-timer { font-size: 22px; margin-top: 16px; }
 
-/*Filling the fuel minigame*/
+/* ---------- Fuel game ---------- */
 #mg-tank {
     position: relative;
     width: 90px;
