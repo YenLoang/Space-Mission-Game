@@ -128,6 +128,99 @@ function mgDrawLine(a, b, color) {
     document.getElementById('mg-wire-lines').appendChild(line);
 }
 
+function mgFuelGame(overlay, missionNumber, done){
+    const zone = MGF_FUEL_ZONES[missionNumber] || MGF_FUEL_ZONES[1];
+
+    overlay.innerHTML = `
+    <p class = "mg-title">Load the Fuel</p>
+    <p class ="mg-sub">${zone.name} mission: hold the button and let go in the green zome.</p>
+    <div id="mg-tank">
+        <div id="mg-zone"></div>
+        <div id ="mg-fuel"></div>
+    </div>
+    <button class="mg-btn" id="mg-fill-btn">Hold to fill </button>
+        <p class="mg-msg" id="mg-fuel-msg">Tries left: ${MG_FUEL_TRIES}</p>`;
+    
+    //green zone on the tank 
+    const zoneE1 = document.getElementById('mg-zone');
+    zoneE1.style.bottom = zone.min +'%';
+    zoneE1.style.height = (zone.max - zone.min) +'%'
+
+    const fuelE1 = document.getElementById('mg-fuel');
+    const btn = document.getElementById('mg-fill-btn');
+    const msg = document.getElementById('mg-fuel-msg');
+
+    let level = 0;
+    let filling = null;
+    let tries = MG_FUEL_TRIES;
+    let locked = false;
+
+    function startFill(e){
+        e.preventDefault();
+        if (filling || locked) return;
+        level =0;
+        fuelE1.style.height ='0%'
+        filling = setInterval(() => {
+            level += 0.8
+            if (level >= 100) level = 100;
+            fuelE1.style.height = level + '%';
+
+        }, 20);
+
+    }
+
+    function stopFilling(){
+        if (!filling) return;
+        clearInterval(filling);
+        filling = null;
+        locked = true;
+        tries--;
+
+        const pct = Math.round(level);
+        if (level >= zone.min && level <= zone.max){
+            msg.textContent = `Fuel loaded: ${pct}% ✔`;
+            setTimeout(() => done(true), 1200);
+            return;
+        }
+
+    }
+        const tooLow = level <zone.min;
+        const reason = tooLow
+        ? `Not enough fuel (${pct}%) — the spacecraft can't reach its destination.`
+            : `Too much fuel (${pct}%) — the rocket is too heavy to lift off.`;
+        
+        if (tries <= 0) {
+            msg.textContent = reason;
+            setTimeout(() => done(false, reason), 1500);
+        } else {
+            msg.textContent = `${tooLow ? 'Too low!' : 'Too high!'} ${pct}% — tries left: ${tries}`;
+            setTimeout(() => { locked = false; }, 800);
+        }
+
+    btn.addEventListener('mousedown', startFill);
+    btn.addEventListener('touchstart', startFill);
+    btn.addEventListener('mouseup', stopFill);
+    btn.addEventListener('mouseleave', stopFill);
+    btn.addEventListener('touchend', stopFill);
+    }
+
+    function mgFinish(overlay, success, reason, onDone) {
+    overlay.innerHTML = `
+        <p class="mg-title">${success ? '✅ All systems go' : '❌ Mission failed'}</p>
+        <p class="mg-sub">${reason}</p>
+        <button class="mg-btn" id="mg-continue-btn">Continue</button>`;
+    document.getElementById('mg-continue-btn').addEventListener('click', () => {
+        overlay.remove();
+        if (onDone) onDone(success, reason);
+    });
+}
+        
+
+
+    
+
+
+
 
 
 

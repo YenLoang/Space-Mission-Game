@@ -1,0 +1,91 @@
+#mg-overlay {
+    position: fixed;
+    inset: 0;
+    background: rgba(2, 8, 18, 0.97);
+    color: white;
+    font-family: Arial, sans-serif;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;            /* sits on top of everything */
+}
+
+.mg-hide { display: none !important; }
+
+.mg-title { font-size: 36px; margin: 0 0 8px; }
+.mg-sub   { font-size: 20px; margin: 0 0 20px; opacity: 0.85; }
+
+.mg-btn {
+    font-size: 24px;
+    background-color: rgb(51, 88, 120);
+    color: white;
+    border: none;
+    padding: 10px 30px;
+    border-radius: 12px;
+    cursor: pointer;
+    user-select: none;
+}
+.mg-btn:active { transform: scale(0.97); }
+
+/* Flashing Warning */
+#mg-warning {
+    background: #8b0000;
+    padding: 24px 32px;
+    border-radius: 16px;
+    text-align: center;
+    animation: mg-blink 1s infinite;
+}
+@keyframes mg-blink { 50% { opacity: 0.6; } }
+
+/*  Wire game */
+#mg-wire-board {
+    position: relative;
+    width: 360px;
+    height: 280px;
+    background: rgb(4, 24, 41);
+    border-radius: 16px;
+}
+#mg-left-wires  { position: absolute; left: 30px;  top: 10px; }
+#mg-right-wires { position: absolute; right: 30px; top: 10px; }
+#mg-wire-lines  { position: absolute; inset: 0; width: 100%; height: 100%; pointer-events: none; }
+.mg-wire {
+    width: 36px;
+    height: 36px;
+    margin: 20px 0;
+    border-radius: 50%;
+    cursor: pointer;
+    box-sizing: border-box;
+}
+.mg-timer { font-size: 22px; margin-top: 16px; }
+
+/*Filling the fuel minigame*/
+#mg-tank {
+    position: relative;
+    width: 90px;
+    height: 300px;
+    border: 3px solid white;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 20px;
+    background: rgb(4, 24, 41);
+}
+#mg-zone {
+    position: absolute;
+    left: 0;
+    right: 0;
+    background: rgba(60, 200, 90, 0.35);
+    border-top: 2px dashed #6f6;
+    border-bottom: 2px dashed #6f6;
+    z-index: 2;               /* drawn on top of the fuel so you can always see it */
+}
+#mg-fuel {
+    position: absolute;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    height: 0%;
+    background: orange;
+    z-index: 1;
+}
+.mg-msg { font-size: 22px; min-height: 30px; margin-top: 14px; }
