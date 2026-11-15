@@ -325,6 +325,7 @@ body{
     position: absolute;
     bottom: -15%;
     left: 45%;
+    top: 10%;
     border: none;
     cursor: pointer;
 }
@@ -335,7 +336,7 @@ body{
     text-align: center;
     color: rgb(241, 243, 244);
     position: absolute;
-    top:10%;
+    top:7%;
     left: 50%;
     padding: 10px 20px;
     transform: translate(-50%, -50%);
@@ -348,7 +349,7 @@ body{
     position: absolute;
     color:white;
     width: 80%;
-    top: 55%;
+    top: 70%;
     left: 50%;
     padding: 10px 20px;
     transform: translate(-50%, -50%);
@@ -411,4 +412,222 @@ body{
     left: 45%;
     border: none;
     cursor: pointer;
+}
+
+
+
+
+
+
+/* =================================
+   LIVE SLIDER VALUES
+================================= */
+
+#mission1-container label,
+#mission2-container label,
+#mission3-container label {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 85%;
+    font-size: 22px;
+    font-weight: bold;
+    margin-top: 10px;
+    color: white;
+}
+
+.slider-value {
+    color: #4b0404;
+    background: rgba(244, 163, 163, 0.85);
+    padding: 5px 14px;
+    border-radius: 8px;
+    min-width: 55px;
+    box-shadow: 0 0 8px rgba(247, 245, 245, 0.3);
+}
+
+/* =================================
+   SLIDER APPEARANCE
+================================= */
+
+input[type="range"] {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 80%;
+    height: 10px;
+    background: linear-gradient(
+        to right,
+        #f0b0ba,
+        #5c1113
+    );
+    border-radius: 10px;
+    outline: none;
+    cursor: pointer;
+    transition: 0.2s;
+}
+
+input[type="range"]::-webkit-slider-thumb {
+    appearance: none;
+    -webkit-appearance: none;
+    width: 23px;
+    height: 23px;
+    background: #6a1a1a;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #eaa6b6;
+    cursor: grab;
+}
+
+input[type="range"]::-moz-range-thumb {
+    width: 18px;
+    height: 18px;
+    background: #460303;
+    border: 3px solid white;
+    border-radius: 50%;
+    box-shadow: 0 0 12px #e6aaaa;
+    cursor: grab;
+}
+
+/* Disabled cost slider */
+input[type="range"]:disabled {
+    opacity: 0.65;
+    cursor: not-allowed;
+}
+
+/* =================================
+   MISSION SCORE PANEL
+================================= */
+
+.score-panel {
+    width: 85%;
+    margin: 25px auto 10px;
+    padding: 20px;
+    background: rgba(4, 24, 41, 0.8);
+    border: 2px solid #2b031d;
+    border-radius: 15px;
+    box-shadow: 0 0 15px rgba(178, 220, 232, 0.3);
+}
+
+.score-panel h3 {
+    font-size: 20px;
+    letter-spacing: 3px;
+    color: #eed5fc;
+    margin-bottom: 10px;
+}
+
+.score-number {
+    font-size: 45px;
+    font-weight: bold;
+    color: #edc8fb;
+    text-shadow: 0 0 12px #bd7fd7;
+    margin: 10px;
+}
+
+.score-bar {
+    width: 100%;
+    height: 18px;
+    background: #263c50;
+    border-radius: 20px;
+    overflow: hidden;
+    margin: 15px 0;
+}
+
+.score-fill {
+    width: 0%;
+    height: 100%;
+    background: linear-gradient(
+        to right,
+        #0b043c,
+        #7b5cb6,
+        #d5ceef
+    );
+    border-radius: 20px;
+    transition: width 0.5s ease;
+}
+
+.score-status {
+    color: white;
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 10px;
+}
+
+/* Score animation */
+.score-update {
+    animation: scorePop 0.3s ease;
+}
+
+@keyframes scorePop {
+    0% {
+        transform: scale(1);
+    }
+
+    50% {
+        transform: scale(1.2);
+    }
+
+    100% {
+        transform: scale(1);
+    }
+}
+
+/* =================================
+   SUBMIT BUTTONS
+================================= */
+
+#submit-sliders,
+#submit-sliders-2,
+#submit-sliders-3 {
+    position: static;
+    transform: none;
+    margin: 20px auto;
+    background: #5c1113;
+    color: white;
+    border: 2px solid #f0b0ba;
+    transition: 0.3s ease;
+}
+
+
+
+#submit-sliders:hover,
+#submit-sliders-2:hover,
+#submit-sliders-3:hover {
+    background: #d47e7e;
+    box-shadow: 0 0 20px #904f4f;
+}
+
+button:disabled {
+    opacity: 0.6;
+    cursor: default;
+    transform: none;
+}
+
+/* =================================
+   RESPONSIVE DESIGN
+================================= */
+
+@media (max-width: 700px) {
+
+    #mission1-container,
+    #mission2-container,
+    #mission3-container {
+        width: 95%;
+        top: 20px;
+        font-size: 18px;
+        padding: 15px;
+    }
+
+    #mission1-container label,
+    #mission2-container label,
+    #mission3-container label {
+        width: 95%;
+        font-size: 16px;
+    }
+
+    .score-panel {
+        width: 95%;
+    }
+
+    .score-number {
+        font-size: 35px;
+    }
 }
