@@ -35,7 +35,7 @@ function startEngineerMinigames(missionNumber, onDone) {
 
             mgFuelGame(overlay, missionNumber, (fuelOk, reason) => {
                 if (!fuelOk) return mgFinish(overlay, false, reason, onDone);
-                mgFinish(overlay, true, "Wiring fixed and fuel loaded. Ready for launch! 🚀", onDone);
+                mgFinish(overlay, true, "Wiring fixed and fuel loaded. Ready for launch! ", onDone);
             });
         });
     });
@@ -167,7 +167,7 @@ function mgFuelGame(overlay, missionNumber, done) {
             <div id="mg-zone"></div>
             <div id="mg-fuel"></div>
         </div>
-        <button class="mg-btn" id="mg-fill-btn">Hold to fill ⛽</button>
+        <button class="mg-btn" id="mg-fill-btn">Hold to fill </button>
         <p class="mg-msg" id="mg-fuel-msg">Tries left: ${MG_FUEL_TRIES}</p>`;
 
     // place the green zone on the tank

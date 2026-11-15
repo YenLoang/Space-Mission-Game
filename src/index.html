@@ -1,3 +1,4 @@
+<!--index.html-->
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -5,147 +6,208 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Space Mission Game</title>
     <link rel="stylesheet" href="style.css">
-    <script src="script.js" defer></script>
-    <!-- Engineer minigames -->
     <link rel="stylesheet" href="Minigame.css">
+    <link rel="stylesheet" href="rock-animation.css">s
+
+    <script src="script.js" defer></script>
     <script src="Minigame.js" defer></script>
     <script src="engineer-connect.js" defer></script>
 </head>
+
 <body>
-    <div id="title-container" class="screen">
-        <h1>Space Mission Game</h1>
+    <!-- Back button: appears on every screen except the title screen -->
+    <button id="back-btn" class="hidden">← Back</button>
+
+    <!-- Screen 1: Title -->
+    <div id="title-screen" class="screen">
+        <h1 class="game-title">Space Mission Game</h1>
+        <button id="play-btn">Start</button>
     </div>
-    <div id="game-container" class = "screen">
-        <div id="options">
-            <button id="Commander">Commander</button>
-            <button id="Engineer">Engineer</button>
-        </div>
-        <div id="button-container">
-            <button id ="start-btn">Start</button>
+
+    <!-- Screen 2: Pick a role (only Engineer is playable for now) -->
+    <div id="role-screen" class="screen hidden">
+        <h1 class="screen-heading">Pick a Role</h1>
+
+        <div class="role-grid">
+            <button class="role-card" disabled>
+                <span class="role-icon">🎖️</span>
+                <span class="role-name">Commander</span>
+                <span class="role-desc">Lead the mission and make the big calls.</span>
+                <span class="role-badge">Coming soon</span>
+            </button>
+
+            <button class="role-card" id="role-engineer">
+                <span class="role-icon">🛠️</span>
+                <span class="role-name">Engineer</span>
+                <span class="role-desc">Design the spacecraft and prepare it for launch.</span>
+                <span class="role-badge live">Play now</span>
+            </button>
+
+            <button class="role-card" disabled>
+                <span class="role-icon">🧭</span>
+                <span class="role-name">Pilot</span>
+                <span class="role-desc">Fly the spacecraft to its destination.</span>
+                <span class="role-badge">Coming soon</span>
+            </button>
+
+            <button class="role-card" disabled>
+                <span class="role-icon">👩‍🚀</span>
+                <span class="role-name">Crew</span>
+                <span class="role-desc">Run experiments and keep the ship running.</span>
+                <span class="role-badge">Coming soon</span>
+            </button>
         </div>
     </div>
 
-    <div id="game-over-container" class = "screen hidden">
+    <!-- Game over (not reachable yet) -->
+    <div id="game-over-container" class="screen hidden">
         <h2>Game Over</h2>
         <button id="restart-btn">Restart</button>
     </div>
+
+<!-- Engineer page2 -->
 
 <!-- Engineer page2 -->
     <div id="engineer-page2" class="screen hidden">
         <div id = "engineer-page2-title">
             <h1> Choose a Mission!</h1></div>
         <div id = "mission1ex-container">
-            <p>Details about Mission 1</p>
+            <p class="p">
+                Did you know that rocky planets like Earth are made up of 
+                elements that were created in dying stars?
+            </p>
+            <p class = "p-statement">
+                Let's design a sounding rocket mission and send a lab about 
+                210 miles up to collect data so that we can further explore this phenomenon!
+            </p>
             <button id="mission1">Mission 1</button>
         </div>
       
-        <div id = "mission2ex-container">
-            <p>Details about Mission 2</p>
+        <div id = "mission2ex-container" >
+            <p class="p">
+                Wanna capture high-definition imagery every few seconds to track 
+                developing hurricanes, tornadoes, wildfires, river swellings 
+                across America?
+            </p>
+            <p class = "p-statement">
+                Let's design a Geostationary Orbital Spaceflight Mission and send an eye in the sky above the equator!
+            </p>
             <button id="mission2">Mission 2</button>
         </div>
         <div id = "mission3ex-container">
-            <p>Details about Mission 3</p>
+            <p class="p">
+                Did you know that one of Jupiter's moons, Europa, may have a hidden ocean that could support life?</p>
+            <p class = "p-statement">
+                Design a Deep Space Research Spaceflight mission that would catch faint sunlight 
+                in outer solar system and follow a 2.9 billion kilometers trajectory while orbiting
+                around Jupiter in a 21-day loop so that we can study Europa's hidden ocean!
+            </p>
             <button id="mission3">Mission 3</button>
         </div>
     </div>
 
-<!-- Engineer page3 if Mission1 -->
-    <div id="engineer-miss1" class="screen hidden">
-        <div id = "engineer-miss1-title">
-            <h1>Mission 1</h1>
-        </div>
 
-        <div id = "mission1-container">
-            <p>Move the Sliders to see their tradeoff!</p>
-            
-            <input type="range" id="slider1" min="0" max="100" value="50">
-            <label for="slider1">Electrical Power</label>
-
-            <input type="range" id="slider2" min="0" max="100" value="50">
-            <label for="slider2">Mass</label>
-
-            <input type="range" id="slider3" min="0" max="100" value="50">
-            <label for="slider3">Flight</label>
-
-            <input type="range" id="slider4" min="0" max="100" value="50">
-            <label for="slider4">Fuel</label>
-
-            <input type="range" id="slider5" min="0" max="100" value="50" disabled>
-            <label for="slider5">Cost</label>
-
-            <input type="range" id="slider6" min="0" max="100" value="50">
-            <label for="slider6">Propulsion</label>
-
-            <button id="submit-sliders">Submit</button>
-
-        </div>
+<!-- Mission 1 -->
+<div id="engineer-miss1" class="screen hidden">
+    <div id="engineer-miss1-title">
+        <h1>Mission 1</h1>
     </div>
 
-<!-- Engineer page3 if Mission2 -->
-    <div id="engineer-miss2" class="screen hidden">
-        <div id = "engineer-miss2-title">
-            <h1>Mission 2</h1>
-        </div>
-        <div id = "mission2-container">
-            <p>Move the Sliders to see their tradeoff!</p>
-            <input type="range" id="slider7" min="0" max="100" value="50">
-            <label for="slider7">Electrical Power</label>
+    <div id="mission1-container">
+        <p>Adjust the mission parameters to design your sounding rocket!</p>
 
-            <input type="range" id="slider8" min="0" max="100" value="50">
-            <label for="slider8">Mass</label>
+        <label for="slider1">Research Altitude (miles)</label>
+        <input type="range" id="slider1" min="205" max="215" step="1" value="210">
 
-            <input type="range" id="slider9" min="0" max="100" value="50">
-            <label for="slider9">Flight</label>
+        <label for="slider2">Mission Duration (minutes)</label>
+        <input type="range" id="slider2" min="5" max="20" step="1" value="12">
 
-            <input type="range" id="slider10" min="0" max="100" value="50">
-            <label for="slider10">Fuel</label>
+        <label for="slider3">Payload Weight (lbs)</label>
+        <input type="range" id="slider3" min="200" max="1100" step="10" value="650">
 
-            <input type="range" id="slider11" min="0" max="100" value="50" disabled>
-            <label for="slider11">Cost</label>
+        <label for="slider4">Lift-off Thrust (lbf)</label>
+        <input type="range" id="slider4" min="9000" max="135000" step="1000" value="72000">
 
-            <input type="range" id="slider12" min="0" max="100" value="50">
-            <label for="slider12">Propulsion</label>
+        <label for="slider5">Mission Cost Index</label>
+        <input type="range" id="slider5" min="0" max="100" value="50" disabled>
 
-            <button id="submit-sliders-2">Submit</button>
+        <button id="submit-sliders">Submit</button>
+    </div>
+</div>
 
-        </div>
+
+<!-- Mission 2 -->
+<div id="engineer-miss2" class="screen hidden">
+    <div id="engineer-miss2-title">
+        <h1>Mission 2</h1>
     </div>
 
-<!-- Engineer page3 if Mission3 -->
-    <div id="engineer-miss3" class="screen hidden">
-        <div id = "engineer-miss3-title">
-            <h1>Mission 3</h1>
-        </div>
-        <div id = "mission3-container">
-            <p>Move the Sliders to see their tradeoff!</p>
-            <input type="range" id="slider13" min="0" max="100" value="50">
-            <label for="slider13">Electrical Power</label>
+    <div id="mission2-container">
+        <p>Adjust the mission parameters to design your geostationary spacecraft!</p>
 
-            <input type="range" id="slider14" min="0" max="100" value="50">
-            <label for="slider14">Mass</label>
+        <label for="slider7">Research Altitude (miles)</label>
+        <input type="range" id="slider7" min="22000" max="22500" step="10" value="22250">
 
-            <input type="range" id="slider15" min="0" max="100" value="50">
-            <label for="slider15">Flight</label>
+        <p class="fixed-parameter">
+            Orbital Period: <strong>24 hours</strong>
+        </p>
 
-            <input type="range" id="slider16" min="0" max="100" value="50">
-            <label for="slider16">Fuel</label>
+        <label for="slider8">Payload Weight (lbs)</label>
+        <input type="range" id="slider8" min="6000" max="17000" step="100" value="11500">
 
-            <input type="range" id="slider17" min="0" max="100" value="50" disabled>
-            <label for="slider17">Cost</label>
+        <label for="slider9">Lift-off Thrust (lbf)</label>
+        <input type="range" id="slider9" min="1700000" max="5500000" step="100000" value="3600000">
 
-            <input type="range" id="slider18" min="0" max="100" value="50">
-            <label for="slider18">Propulsion</label>
+        <label for="slider11">Mission Cost Index</label>
+        <input type="range" id="slider11" min="0" max="100" value="50" disabled>
 
-            <button id="submit-sliders-3">Submit</button>
-
-        </div>
+        <button id="submit-sliders-2">Submit</button>
     </div>
-    <!--launch result-- feel free to change pookie if there's anything weird-->
-    <div id="launch-result" class="screen hidden"> 
-        <h2 id="launch-result-title"></h2>
-        <p id="launch-result-text"></p>
-        <button id="launch-result-btn">Back to menu</button>
+</div>
+
+
+<!-- Mission 3 -->
+<div id="engineer-miss3" class="screen hidden">
+    <div id="engineer-miss3-title">
+        <h1>Mission 3</h1>
     </div>
+
+    <div id="mission3-container">
+        <p>Adjust the mission parameters to design your deep-space research spacecraft!</p>
+
+        <label for="slider13">Research Distance (miles)</label>
+        <input type="range" id="slider13" min="200000000" max="400000000" step="1000000" value="300000000">
+
+        <p class="fixed-parameter">
+            Orbital Period: <strong>24 days</strong>
+        </p>
+
+        <label for="slider14">Payload Weight (lbs)</label>
+        <input type="range" id="slider14" min="11000" max="17000" step="100" value="14000">
+
+        <label for="slider15">Lift-off Thrust (lbf)</label>
+        <input type="range" id="slider15" min="15000000" max="25000000" step="100000" value="20000000">
+
+        <label for="slider17">Mission Cost Index</label>
+        <input type="range" id="slider17" min="0" max="100" value="50" disabled>
+
+        <button id="submit-sliders-3">Submit</button>
+    </div>
+</div>
+
+<div id="launch-result" class="screen hidden">
+    <div id="launch-result-content">
+        <h1 id="launch-result-title">Mission Result</h1>
+
+        <p id="launch-result-text">
+            Your mission results will appear here.
+        </p>
+
+        <button id="launch-result-btn">
+            Return to Missions
+        </button>
+    </div>
+</div>
 
 
 

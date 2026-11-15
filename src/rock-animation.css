@@ -1,0 +1,57 @@
+/*rocket-animation.css*/
+
+#rocket-layer {
+    position: absolute;
+    inset: 0;
+    overflow: hidden;
+    pointer-events: none;     /* never blocks the buttons underneath */
+    z-index: 5;
+}
+
+.rocket {
+    position: absolute;
+    left: 85%;
+    bottom: 0;
+    width: 60px;
+    height: 120px;
+    transform: translate(-50%, 0);
+}
+
+.rocket svg {
+    display: block;
+    position: relative;
+    z-index: 1;
+}
+
+.rocket-flame {
+    position: absolute;
+    top: 100%;
+    left: 50%;
+    width: 22px;
+    height: 46px;
+    margin: -6px 0 0 -11px;
+    background: linear-gradient(to bottom, #fff2a8, #ff9f1c 55%, rgba(214, 40, 40, 0));
+    border-radius: 50% 50% 50% 50% / 15% 15% 85% 85%;
+    transform-origin: top center;
+    animation: flameFlicker 0.12s infinite alternate;
+}
+
+@keyframes flameFlicker {
+    from { transform: scaleY(0.8) scaleX(0.9); }
+    to   { transform: scaleY(1.25) scaleX(1.05); }
+}
+
+.boom-flash {
+    position: absolute;
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    background: radial-gradient(circle, #fff 0%, #ffd23f 35%, rgba(255, 90, 54, 0) 70%);
+}
+
+.boom-piece {
+    position: absolute;
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+}
